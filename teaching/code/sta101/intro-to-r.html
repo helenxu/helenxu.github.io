@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>intro to r — R Code — Cong Xu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:300,400,500,700&amp;display=swap">
+<style>
+  body { margin:0; font-family:Roboto,-apple-system,sans-serif; color:#000;
+         line-height:1.7; background:#fff; }
+  .wrap { max-width:960px; margin:0 auto; padding:0 24px 48px; }
+  .back { display:block; padding:14px 0; font-size:14px; color:#b509ac;
+           text-decoration:none; border-bottom:1px solid rgba(0,0,0,.1); }
+  h1 { font-family:"Roboto Slab",serif; font-weight:400; font-size:1.6rem;
+        margin:1.6rem 0 .3rem; }
+  .meta { color:#828282; font-size:.9rem; margin:0 0 1.4rem; }
+  .code { border:1px solid rgba(0,0,0,.1); border-radius:6px; padding:16px;
+           overflow-x:auto; font-size:.86rem; line-height:1.6; }
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.code .hll { background-color: #ffffcc }
+.code { background: #f8f8f8; }
+.code .c { color: #3D7B7B; font-style: italic } /* Comment */
+.code .err { border: 1px solid #F00 } /* Error */
+.code .k { color: #008000; font-weight: bold } /* Keyword */
+.code .o { color: #666 } /* Operator */
+.code .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.code .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.code .cp { color: #9C6500 } /* Comment.Preproc */
+.code .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.code .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.code .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.code .gd { color: #A00000 } /* Generic.Deleted */
+.code .ge { font-style: italic } /* Generic.Emph */
+.code .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.code .gr { color: #E40000 } /* Generic.Error */
+.code .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.code .gi { color: #008400 } /* Generic.Inserted */
+.code .go { color: #717171 } /* Generic.Output */
+.code .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.code .gs { font-weight: bold } /* Generic.Strong */
+.code .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.code .gt { color: #04D } /* Generic.Traceback */
+.code .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.code .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.code .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.code .kp { color: #008000 } /* Keyword.Pseudo */
+.code .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.code .kt { color: #B00040 } /* Keyword.Type */
+.code .m { color: #666 } /* Literal.Number */
+.code .s { color: #BA2121 } /* Literal.String */
+.code .na { color: #687822 } /* Name.Attribute */
+.code .nb { color: #008000 } /* Name.Builtin */
+.code .nc { color: #00F; font-weight: bold } /* Name.Class */
+.code .no { color: #800 } /* Name.Constant */
+.code .nd { color: #A2F } /* Name.Decorator */
+.code .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.code .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.code .nf { color: #00F } /* Name.Function */
+.code .nl { color: #767600 } /* Name.Label */
+.code .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.code .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.code .nv { color: #19177C } /* Name.Variable */
+.code .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.code .w { color: #BBB } /* Text.Whitespace */
+.code .mb { color: #666 } /* Literal.Number.Bin */
+.code .mf { color: #666 } /* Literal.Number.Float */
+.code .mh { color: #666 } /* Literal.Number.Hex */
+.code .mi { color: #666 } /* Literal.Number.Integer */
+.code .mo { color: #666 } /* Literal.Number.Oct */
+.code .sa { color: #BA2121 } /* Literal.String.Affix */
+.code .sb { color: #BA2121 } /* Literal.String.Backtick */
+.code .sc { color: #BA2121 } /* Literal.String.Char */
+.code .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.code .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.code .s2 { color: #BA2121 } /* Literal.String.Double */
+.code .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.code .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.code .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.code .sx { color: #008000 } /* Literal.String.Other */
+.code .sr { color: #A45A77 } /* Literal.String.Regex */
+.code .s1 { color: #BA2121 } /* Literal.String.Single */
+.code .ss { color: #19177C } /* Literal.String.Symbol */
+.code .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.code .fm { color: #00F } /* Name.Function.Magic */
+.code .vc { color: #19177C } /* Name.Variable.Class */
+.code .vg { color: #19177C } /* Name.Variable.Global */
+.code .vi { color: #19177C } /* Name.Variable.Instance */
+.code .vm { color: #19177C } /* Name.Variable.Magic */
+.code .il { color: #666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../../course-sta101.html">&larr; 返回课程页 / Back to course page</a>
+  <h1>intro to r</h1>
+  <p class="meta">intro-to-r.R &middot; 下载：<a href="intro-to-r.R">intro-to-r.R</a></p>
+  <div class="code"><div class="highlight"><pre><span></span><span class="c1">#============================================ Basics =================================================#</span>
+<span class="c1"># The Console is a tab in RStudio where we can run R code.</span>
+<span class="c1"># We can use the console to test code immediately.</span>
+<span class="c1"># Example: type expressions like 1 + 2, 2^2, sqrt(2), exp(1), log(2)</span>
+<span class="c1"># We can store the output of these commands as variables with the "assignment operator" &lt;- or =</span>
+<span class="n">result1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="n">result2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="c1"># We’ll see any objects we created, such as result1 and result2, under values in the Environment tab.</span>
+<span class="c1"># When we type result1 into the console and hit enter, we see the stored value of 0.6931472.</span>
+
+<span class="c1"># We can create vectors using the function c, which stands for concatenate. </span>
+<span class="n">number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">)</span>
+<span class="n">country</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">"Italy"</span><span class="p">,</span><span class="w"> </span><span class="s">"China"</span><span class="p">,</span><span class="w"> </span><span class="s">"Egypt"</span><span class="p">)</span>
+
+<span class="c1"># We can also write a function to implement some functionality.</span>
+<span class="c1"># Example: to solve the quadratic equations of the form ax^2 + bx + c = 0</span>
+<span class="n">solveQE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">temp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">b</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="s">'No real solution!'</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">else</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">x1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="n">x2</span><span class="p">))</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kr">else</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="nf">solveQE</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="nf">solveQE</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+
+<span class="c1">#============================================ Packages ==============================================#</span>
+<span class="c1"># Much of the functionality in R comes from using packages. </span>
+<span class="c1"># Packages are shareable collections of code, data, and documentation.</span>
+<span class="c1"># To install packages in R we use the built-in install.packages() function.</span>
+<span class="c1"># Example: access to Galton’s family height data through the HistData package.</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">'HistData'</span><span class="p">)</span>
+<span class="c1"># After a package is installed on a computer’s hard drive, library() is used to load it into memory.</span>
+<span class="c1"># To check which packages are loaded, refer to the Packages tab at the bottom right of the window.</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">HistData</span><span class="p">)</span>
+<span class="c1"># Get the help file of the data</span>
+<span class="o">?</span><span class="n">GaltonFamilies</span>
+<span class="c1"># Output the first 6 lines of the data</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">GaltonFamilies</span><span class="p">)</span>
+<span class="c1"># Filter the children who are male</span>
+<span class="n">subdata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">GaltonFamilies</span><span class="p">[</span><span class="n">GaltonFamilies</span><span class="o">$</span><span class="n">gender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">'male'</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="c1"># Plot the son's height against the father's height</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">childHeight</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">father</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subdata</span><span class="p">)</span>
+<span class="c1"># Make the figure nicer</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">childHeight</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">father</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subdata</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"grey"</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">)</span>
+<span class="nf">grid</span><span class="p">()</span>
+<span class="c1"># The package ggplot2 can be used to generate nice-looking figures</span>
+<span class="c1"># Fit a linear model</span>
+<span class="n">fit1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">childHeight</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">father</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subdata</span><span class="p">)</span>
+<span class="c1"># Add the fitted line to the figure</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">fit1</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"darkorange"</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+<span class="c1"># Show the regression to the mean effect by looking at the slope</span>
+<span class="c1"># If we reverse the regression, regression to the mean effect still exist</span>
+<span class="n">fit2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">father</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">childHeight</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subdata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</body>
+</html>

@@ -109,6 +109,7 @@ To serve at a short URL such as `congxu.org`:
 | CV | edit `cv.html`; replace `assets/cv/cv.pdf` for the downloadable version |
 | Add a course | copy the commented card block in `teaching.html`, then copy any file in `teaching/` as the new course page |
 | Add slides | drop PDFs into `teaching/slides/<course>/`, then add `<li>` links in the course page |
+| Add R code | drop `.R` into `teaching/code/<course>/`, run the renderer (below), then add `<li>` links |
 | Add notebooks | drop `.ipynb` into `teaching/notebooks/<course>/`, convert to HTML (see below), then add `<li>` links |
 | Course cover image | put the image in `teaching/img/` and replace the `<img src>` in the card |
 
@@ -147,6 +148,15 @@ EOF
 The exported HTML embeds all figures as base64, so it is fully self-contained.
 Each entry also offers a **下载** link (the original `.ipynb`) and a **Colab** link
 that opens it directly in Google Colab.
+
+Same problem for `.R` scripts — Pages serves them as plain text. `tools/render-r.py`
+turns each script into a syntax-highlighted page with a link back to the course:
+
+```bash
+python3 tools/render-r.py teaching/code/sta101 ../../course-sta101.html
+```
+
+Then link both files in the course page: `查看` → the `.html`, `下载` → the `.R`.
 
 ### Keeping files small
 
